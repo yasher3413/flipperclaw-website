@@ -2581,11 +2581,11 @@
 
   /* ── Waitlist form ──
      To wire up a real backend, replace WAITLIST_ENDPOINT with:
-       Loops.so:    'https://app.loops.so/api/newsletter-form/<YOUR_FORM_ID>'
+       Loops.so:    'https://app.loops.so/api/newsletter-form/cmnw8gvlm0j610i335ygsgifd
        Buttondown:  'https://buttondown.email/api/emails/embed-subscribe/<YOUR_USERNAME>'
        Custom:      your own serverless function URL
   ── */
-  const WAITLIST_ENDPOINT = ''; // ← paste your endpoint here
+  const WAITLIST_ENDPOINT = 'https://app.loops.so/api/newsletter-form/cmnw8gvlm0j610i335ygsgifd';
 
   const form      = document.getElementById('waitlist-form');
   const emailEl   = document.getElementById('waitlist-email');
@@ -2629,10 +2629,11 @@
     }
 
     try {
+      const body = new URLSearchParams({ email });
       const res = await fetch(WAITLIST_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
