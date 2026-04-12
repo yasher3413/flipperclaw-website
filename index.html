@@ -886,6 +886,294 @@
       .device-wrap svg { width: 300px; height: auto; }
       .feat-grid { grid-template-columns: 1fr; }
       .tools-table .tool-desc { font-size: 13px; }
+      .hw-grid { grid-template-columns: 1fr; }
+      .llm-grid { grid-template-columns: 1fr; }
+      .mem-scroll { flex-direction: column; }
+      .mem-card { min-width: 100%; }
+    }
+
+    /* ============================================================
+       HARDWARE  (Section 7)
+    ============================================================ */
+    #hardware {
+      background: var(--bg);
+    }
+    .hw-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    /* Parts list */
+    .hw-parts-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+    }
+    .hw-part {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .hw-part:hover {
+      border-color: rgba(255,107,0,0.35);
+      box-shadow: 0 0 16px rgba(255,107,0,0.08);
+    }
+    .hw-part-left { display: flex; align-items: center; gap: 14px; }
+    .hw-part-icon {
+      width: 38px; height: 38px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-bright);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .hw-part-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .hw-part-sub {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      margin-top: 2px;
+    }
+    .hw-part-price {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .hw-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-bright);
+      margin-top: 6px;
+    }
+    .hw-total-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hw-total-price {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .hw-alt {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: rgba(0,212,255,0.05);
+      border: 1px solid rgba(0,212,255,0.18);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .hw-alt strong { color: var(--cyan); }
+    .hw-alt a { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Wiring diagram */
+    .wiring-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.3);
+    }
+    .wiring-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .wiring-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 18px;
+      font-family: var(--font-mono);
+    }
+    .wiring-note span { color: var(--green); }
+
+    /* ============================================================
+       LLM PROVIDERS  (Section 8)
+    ============================================================ */
+    #llm-providers {
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(17,17,26,0.5) 100%);
+    }
+    .llm-header { margin-bottom: 44px; }
+    .llm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .llm-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      overflow: hidden;
+    }
+    .llm-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .llm-card:hover { border-color: rgba(255,107,0,0.4); box-shadow: 0 8px 40px rgba(0,0,0,0.3); }
+    .llm-card:hover::before { transform: scaleX(1); }
+    .llm-card.recommended {
+      border-color: rgba(255,107,0,0.4);
+      box-shadow: 0 0 30px rgba(255,107,0,0.08);
+    }
+    .llm-card.recommended::before { transform: scaleX(1); }
+
+    .llm-recommend-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,107,0,0.15);
+      border: 1px solid rgba(255,107,0,0.35);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+    .llm-card-logo {
+      font-size: 32px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .llm-card-name {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .llm-card-model {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--cyan);
+      margin-bottom: 14px;
+    }
+    .llm-card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .llm-note {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .llm-note code {
+      color: var(--cyan);
+      background: var(--bg-elevated);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       MEMORY & STORAGE  (Section 9)
+    ============================================================ */
+    #memory {
+      background: var(--bg);
+    }
+    .memory-header { margin-bottom: 44px; }
+    .mem-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      /* hide scrollbar but keep functionality */
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-bright) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mem-scroll::-webkit-scrollbar { height: 4px; }
+    .mem-scroll::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+    .mem-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      min-width: 210px;
+      flex-shrink: 0;
+      transition: border-color 0.22s, box-shadow 0.22s, transform 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+    .mem-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .mem-card:hover {
+      border-color: var(--border-bright);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transform: translateY(-3px);
+    }
+    .mem-card:hover::after { transform: scaleX(1); }
+    .mem-icon {
+      font-size: 24px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .mem-filename {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .mem-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -1433,9 +1721,263 @@
 
 
 <!-- ================================================================
-     PLACEHOLDER — SECTIONS 7–12 COMING
+     SECTION 7 — HARDWARE
 ================================================================ -->
-<!-- Hardware, LLM Providers, Memory, Waitlist, Open Source, Footer -->
+<section id="hardware">
+  <div class="container">
+    <div class="hw-grid">
+
+      <!-- Left: parts list -->
+      <div class="fade-in">
+        <p class="section-tag">// Bill of materials</p>
+        <h2 class="section-title">What you need</h2>
+        <p class="section-sub" style="margin-bottom:36px;">
+          Everything you need is off-the-shelf. Total cost under $185.
+        </p>
+
+        <p class="hw-parts-title">Components</p>
+
+        <div class="hw-part">
+          <div class="hw-part-left">
+            <div class="hw-part-icon">🐬</div>
+            <div>
+              <div class="hw-part-name">Flipper Zero</div>
+              <div class="hw-part-sub">flipper.net — 128×64 OLED, GPIO, IR, NFC, Sub-GHz</div>
+            </div>
+          </div>
+          <div class="hw-part-price">~$170</div>
+        </div>
+
+        <div class="hw-part">
+          <div class="hw-part-left">
+            <div class="hw-part-icon">⚙️</div>
+            <div>
+              <div class="hw-part-name">ESP32-S3-DevKitC-1</div>
+              <div class="hw-part-sub">Espressif — dual-core 240MHz, 512KB SRAM, WiFi + BT</div>
+            </div>
+          </div>
+          <div class="hw-part-price">~$10</div>
+        </div>
+
+        <div class="hw-part">
+          <div class="hw-part-left">
+            <div class="hw-part-icon">🔗</div>
+            <div>
+              <div class="hw-part-name">Jumper Wires ×4</div>
+              <div class="hw-part-sub">Female-to-female, 10cm — any supplier</div>
+            </div>
+          </div>
+          <div class="hw-part-price">~$2</div>
+        </div>
+
+        <div class="hw-total">
+          <span class="hw-total-label">Total</span>
+          <span class="hw-total-price">~$182</span>
+        </div>
+
+        <div class="hw-alt">
+          <strong>Alternative:</strong> The official
+          <strong>Flipper Zero WiFi Devboard</strong> (ESP32-S2, ~$30) is also supported.
+          Single-core, less RAM — but plug-and-play with the Flipper's GPIO header.
+          No jumper wires needed.
+        </div>
+      </div>
+
+      <!-- Right: wiring diagram -->
+      <div class="fade-in" style="transition-delay:0.18s;">
+        <div class="wiring-wrap">
+          <p class="wiring-title">Wiring diagram</p>
+
+          <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;" aria-label="Wiring diagram: Flipper Zero GPIO to ESP32-S3">
+
+            <!-- ── FLIPPER ZERO block ── -->
+            <rect x="10" y="50" width="150" height="200" rx="10" fill="#1a1a28" stroke="#2e2e44" stroke-width="1.5"/>
+            <text x="85" y="38" font-family="'JetBrains Mono',monospace" font-size="12" fill="#f0f0f0" text-anchor="middle" font-weight="600">Flipper Zero</text>
+            <text x="85" y="52" font-family="'JetBrains Mono',monospace" font-size="9" fill="#555577" text-anchor="middle">GPIO Header</text>
+
+            <!-- Pin labels -->
+            <text x="60" y="105" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888" text-anchor="end">Pin 13 (TX)</text>
+            <text x="60" y="140" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888" text-anchor="end">Pin 14 (RX)</text>
+            <text x="60" y="175" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888" text-anchor="end">Pin 11 (GND)</text>
+            <text x="60" y="210" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888" text-anchor="end">Pin 1  (5V)</text>
+
+            <!-- Pin connector dots (Flipper right edge) -->
+            <circle cx="162" cy="102" r="5" fill="#ff6b00"/>
+            <circle cx="162" cy="137" r="5" fill="#00d4ff"/>
+            <circle cx="162" cy="172" r="5" fill="#666677"/>
+            <circle cx="162" cy="207" r="5" fill="#ff4455"/>
+
+            <!-- ── WIRES ── -->
+            <!-- TX wire (orange) -->
+            <line x1="162" y1="102" x2="318" y2="102" stroke="#ff6b00" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- RX wire (cyan) -->
+            <line x1="162" y1="137" x2="318" y2="137" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- GND wire (gray) -->
+            <line x1="162" y1="172" x2="318" y2="172" stroke="#666677" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 5V wire (red) -->
+            <line x1="162" y1="207" x2="318" y2="207" stroke="#ff4455" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- Wire direction arrows (TX) -->
+            <polygon points="290,96 304,102 290,108" fill="#ff6b00" opacity="0.9"/>
+            <!-- Wire direction arrows (RX) -->
+            <polygon points="190,131 176,137 190,143" fill="#00d4ff" opacity="0.9"/>
+
+            <!-- ── ESP32-S3 block ── -->
+            <rect x="318" y="50" width="150" height="200" rx="10" fill="#0a160a" stroke="#1a3a1a" stroke-width="1.5"/>
+            <text x="393" y="38" font-family="'JetBrains Mono',monospace" font-size="12" fill="#f0f0f0" text-anchor="middle" font-weight="600">ESP32-S3</text>
+            <text x="393" y="52" font-family="'JetBrains Mono',monospace" font-size="9" fill="#2a5a2a" text-anchor="middle">DevKitC-1</text>
+
+            <!-- Pin connector dots (ESP32 left edge) -->
+            <circle cx="318" cy="102" r="5" fill="#ff6b00"/>
+            <circle cx="318" cy="137" r="5" fill="#00d4ff"/>
+            <circle cx="318" cy="172" r="5" fill="#666677"/>
+            <circle cx="318" cy="207" r="5" fill="#ff4455"/>
+
+            <!-- Pin labels ESP32 side -->
+            <text x="328" y="105" font-family="'JetBrains Mono',monospace" font-size="10" fill="#2a6a2a">GPIO18 (RX)</text>
+            <text x="328" y="140" font-family="'JetBrains Mono',monospace" font-size="10" fill="#00d4ff" opacity="0.8">GPIO17 (TX)</text>
+            <text x="328" y="175" font-family="'JetBrains Mono',monospace" font-size="10" fill="#555566">GND</text>
+            <text x="328" y="210" font-family="'JetBrains Mono',monospace" font-size="10" fill="#884444">5V</text>
+
+            <!-- Chip silhouette on ESP32 -->
+            <rect x="346" y="220" width="60" height="22" rx="3" fill="#101a10" stroke="#1e3a1e" stroke-width="1"/>
+            <text x="376" y="235" font-family="'JetBrains Mono',monospace" font-size="8" fill="#2e5a2e" text-anchor="middle">ESP32-S3</text>
+
+            <!-- Centre divider label -->
+            <text x="240" y="270" font-family="'JetBrains Mono',monospace" font-size="9" fill="#555577" text-anchor="middle">UART</text>
+            <line x1="190" y1="265" x2="225" y2="265" stroke="#333344" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="255" y1="265" x2="290" y2="265" stroke="#333344" stroke-width="1" stroke-dasharray="3,3"/>
+          </svg>
+
+          <p class="wiring-note">
+            <span>✓</span> Both devices run 3.3V logic — no level shifter needed.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     SECTION 8 — LLM PROVIDERS
+================================================================ -->
+<section id="llm-providers">
+  <div class="container">
+    <div class="llm-header fade-in">
+      <p class="section-tag">// Model support</p>
+      <h2 class="section-title">Your model, your choice</h2>
+      <p class="section-sub">
+        Swap providers at runtime via the serial CLI. No reflash required.
+      </p>
+    </div>
+
+    <div class="llm-grid">
+
+      <!-- Anthropic -->
+      <div class="llm-card recommended fade-in">
+        <div class="llm-recommend-badge">★ Recommended</div>
+        <span class="llm-card-logo">🤖</span>
+        <div class="llm-card-name">Anthropic</div>
+        <div class="llm-card-model">claude-haiku-4-5</div>
+        <p class="llm-card-desc">
+          Fast, cheap, and purpose-built for tool use. Haiku-4-5 handles
+          multi-step ReAct loops efficiently within the ESP32-S3's memory
+          constraints. Lowest latency to first token.
+        </p>
+      </div>
+
+      <!-- OpenAI -->
+      <div class="llm-card fade-in" style="transition-delay:0.12s;">
+        <span class="llm-card-logo">🧠</span>
+        <div class="llm-card-name">OpenAI</div>
+        <div class="llm-card-model">gpt-4o-mini</div>
+        <p class="llm-card-desc">
+          Solid tool-use performance and broad general knowledge.
+          Use it if you prefer OpenAI's ecosystem or already have an API key.
+          Swap at runtime — no code changes needed.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="llm-note fade-in" style="transition-delay:0.2s;">
+      Switch providers via the serial CLI: <code>fc&gt; set_model_provider openai</code>
+      &nbsp;—&nbsp; or <code>fc&gt; set_model_provider anthropic</code>.
+      The change persists across reboots.
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     SECTION 9 — MEMORY & STORAGE
+================================================================ -->
+<section id="memory">
+  <div class="container">
+    <div class="memory-header fade-in">
+      <p class="section-tag">// Persistent storage</p>
+      <h2 class="section-title">It remembers</h2>
+      <p class="section-sub">
+        Every file lives on SPIFFS — flash storage that survives reboots.
+        Scroll to see all files →
+      </p>
+    </div>
+
+    <div class="mem-scroll fade-in" style="transition-delay:0.1s;">
+
+      <div class="mem-card">
+        <span class="mem-icon">🪪</span>
+        <div class="mem-filename">SOUL.md</div>
+        <p class="mem-desc">Agent personality and system prompt. Edit it to change who FlipperClaw is.</p>
+      </div>
+
+      <div class="mem-card">
+        <span class="mem-icon">👤</span>
+        <div class="mem-filename">USER.md</div>
+        <p class="mem-desc">Your profile. Tell it your name, job, preferences — once. It won't forget.</p>
+      </div>
+
+      <div class="mem-card">
+        <span class="mem-icon">🧠</span>
+        <div class="mem-filename">MEMORY.md</div>
+        <p class="mem-desc">Facts the agent has remembered via the <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-elevated);color:var(--cyan);padding:1px 5px;border-radius:3px;">remember</code> tool across sessions.</p>
+      </div>
+
+      <div class="mem-card">
+        <span class="mem-icon">💓</span>
+        <div class="mem-filename">HEARTBEAT.md</div>
+        <p class="mem-desc">Pending task checklist. Checked every 30 minutes. Completed items auto-marked.</p>
+      </div>
+
+      <div class="mem-card">
+        <span class="mem-icon">📅</span>
+        <div class="mem-filename">YYYY-MM-DD.md</div>
+        <p class="mem-desc">Daily notes. Every session is logged automatically with timestamp and content.</p>
+      </div>
+
+      <div class="mem-card">
+        <span class="mem-icon">⏰</span>
+        <div class="mem-filename">cron.json</div>
+        <p class="mem-desc">Scheduled jobs. All cron entries are written here and survive power cycles.</p>
+      </div>
+
+      <div class="mem-card">
+        <span class="mem-icon">💬</span>
+        <div class="mem-filename">session.jsonl</div>
+        <p class="mem-desc">Rolling conversation history in JSONL format. Injected as context each session.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     PLACEHOLDER — SECTIONS 10–12 COMING
+================================================================ -->
+<!-- Waitlist, Open Source Banner, Footer -->
 
 
 <!-- ================================================================
