@@ -890,6 +890,319 @@
       .llm-grid { grid-template-columns: 1fr; }
       .mem-scroll { flex-direction: column; }
       .mem-card { min-width: 100%; }
+      .waitlist-inner { padding: 52px 24px; }
+      .waitlist-form-row { flex-direction: column; }
+      .waitlist-input, .waitlist-btn { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-links-group { flex-direction: column; gap: 10px; }
+    }
+
+    /* ============================================================
+       WAITLIST  (Section 10)
+    ============================================================ */
+    #waitlist {
+      background: var(--bg);
+      padding: 0;
+    }
+    .waitlist-inner {
+      background: linear-gradient(135deg, rgba(255,107,0,0.12) 0%, rgba(255,107,0,0.04) 40%, rgba(0,212,255,0.04) 100%);
+      border: 1px solid rgba(255,107,0,0.2);
+      border-radius: 20px;
+      padding: 80px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* corner glows */
+    .waitlist-inner::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,107,0,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .waitlist-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .waitlist-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .waitlist-headline {
+      font-family: var(--font-mono);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+    .waitlist-headline span { color: var(--accent); }
+    .waitlist-sub {
+      font-size: 16px;
+      color: var(--text-dim);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    .waitlist-form {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .waitlist-form-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .waitlist-input {
+      flex: 1;
+      background: rgba(10,10,15,0.85);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-size: 15px;
+      color: var(--text);
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .waitlist-input::placeholder { color: var(--muted); }
+    .waitlist-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255,107,0,0.15);
+    }
+    .waitlist-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 0 24px var(--accent-glow);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+    .waitlist-btn:hover:not(:disabled) {
+      background: #ff8200;
+      box-shadow: 0 0 40px var(--accent-strong);
+      transform: translateY(-1px);
+    }
+    .waitlist-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    /* Spinner */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .waitlist-btn.loading .spinner { display: block; }
+    .waitlist-btn.loading .btn-label { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .waitlist-privacy {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* Success / Error states */
+    .waitlist-success {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.3);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-size: 15px;
+      color: var(--green);
+      font-family: var(--font-mono);
+    }
+    .waitlist-success.show { display: flex; }
+    .waitlist-error {
+      display: none;
+      color: #ff6677;
+      font-size: 13px;
+      margin-top: 8px;
+      font-family: var(--font-mono);
+    }
+    .waitlist-error.show { display: block; }
+
+    /* Social proof count */
+    .waitlist-count {
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+    .waitlist-count strong { color: var(--text); }
+
+    /* ============================================================
+       OPEN SOURCE BANNER  (Section 11)
+    ============================================================ */
+    #open-source {
+      padding: 80px 0;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .oss-inner {
+      text-align: center;
+    }
+    .oss-headline {
+      font-family: var(--font-mono);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .oss-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .oss-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .oss-pill {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border-bright);
+      color: var(--muted);
+    }
+    .oss-pill.green  { border-color: rgba(0,255,136,0.3); color: var(--green); background: rgba(0,255,136,0.05); }
+    .oss-pill.orange { border-color: rgba(255,107,0,0.3); color: var(--accent); background: rgba(255,107,0,0.05); }
+    .oss-pill.cyan   { border-color: rgba(0,212,255,0.3); color: var(--cyan);   background: rgba(0,212,255,0.05); }
+    .oss-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ============================================================
+       FOOTER  (Section 12)
+    ============================================================ */
+    #footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 48px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .footer-logo svg { width: 24px; height: 24px; }
+    .footer-logo-text {
+      background: linear-gradient(90deg, var(--accent), #ff9f40);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-tagline {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+      margin-bottom: 20px;
+    }
+    .footer-built {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #444455;
+      line-height: 1.8;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-size: 14px;
+      color: #666677;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: #444455;
+      font-family: var(--font-mono);
+    }
+    .footer-social {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .footer-social a {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .footer-social a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(255,107,0,0.06);
     }
 
     /* ============================================================
@@ -1975,9 +2288,171 @@
 
 
 <!-- ================================================================
-     PLACEHOLDER — SECTIONS 10–12 COMING
+     SECTION 10 — WAITLIST
 ================================================================ -->
-<!-- Waitlist, Open Source Banner, Footer -->
+<section id="waitlist" style="padding: var(--sec-pad) 0;">
+  <div class="container">
+    <div class="waitlist-inner fade-in">
+
+      <p class="waitlist-tag">// Early access</p>
+      <h2 class="waitlist-headline">
+        Be first to build with <span>FlipperClaw</span>.
+      </h2>
+      <p class="waitlist-sub">
+        We're preparing build guides, pre-configured firmware binaries,
+        and step-by-step setup videos. Join the waitlist to get notified
+        the moment they're ready.
+      </p>
+
+      <div class="waitlist-form" id="waitlist-form-wrap">
+        <form id="waitlist-form" autocomplete="off">
+          <div class="waitlist-form-row">
+            <input
+              class="waitlist-input"
+              type="email"
+              id="waitlist-email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="waitlist-btn" id="waitlist-btn">
+              <span class="btn-label">Join the Waitlist</span>
+              <div class="spinner"></div>
+            </button>
+          </div>
+          <p class="waitlist-privacy">No spam. Just one email when it's ready.</p>
+          <p class="waitlist-error" id="waitlist-error"></p>
+        </form>
+
+        <div class="waitlist-success" id="waitlist-success">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="10" cy="10" r="9" stroke="#00ff88" stroke-width="1.5"/>
+            <path d="M6 10.5l3 3 5-5" stroke="#00ff88" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          You're on the list. We'll be in touch.
+        </div>
+      </div>
+
+      <p class="waitlist-count">
+        Join <strong id="waitlist-count-num">247</strong> others already on the waitlist.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     SECTION 11 — OPEN SOURCE BANNER
+================================================================ -->
+<section id="open-source">
+  <div class="container">
+    <div class="oss-inner fade-in">
+      <h2 class="oss-headline">FlipperClaw is fully open source.</h2>
+      <p class="oss-sub">
+        MIT License. No cloud required. No subscription. No tracking.<br>
+        Fork it, hack it, ship it. That's the point.
+      </p>
+      <div class="oss-pills">
+        <span class="oss-pill green">MIT License</span>
+        <span class="oss-pill orange">ESP-IDF v5.5</span>
+        <span class="oss-pill cyan">Furi SDK</span>
+        <span class="oss-pill">ArduinoJson</span>
+        <span class="oss-pill">Anthropic API</span>
+        <span class="oss-pill green">No Telemetry</span>
+      </div>
+      <div class="oss-btns">
+        <a href="https://github.com/yasher3413/flipperclaw" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+          View on GitHub
+        </a>
+        <a href="https://github.com/yasher3413/flipperclaw/blob/main/README.md" target="_blank" rel="noopener" class="btn-secondary">
+          Read the Docs
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     SECTION 12 — FOOTER
+================================================================ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand column -->
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11 22C11 22 9 20 9 17C9 14 11 12 13 12V8C13 6.3 14 5 15.5 5C17 5 18 6.3 18 8V11.2C18.8 10.4 20 10.5 20.8 11.3C21.6 12.1 21.5 13.5 20.8 14.2V12C20.8 11.2 21.2 10.6 22 10.6C22.8 10.6 23.2 11.2 23.2 12V15.5C24 14.8 24.5 14.8 25 15.3C25.5 15.8 25.3 17 24.8 17.8L23 22C22.5 24.2 20.5 26 18.2 26H14.8C12.5 26 11 24.2 11 22Z" fill="#ff6b00"/>
+            <path d="M15.5 5C14.3 5.5 13 7 13 8L14.5 7C14.5 6 15 5.2 15.5 5Z" fill="#ff9f40"/>
+            <path d="M18 8C18 6.5 18.8 5.4 20 5C19 6 18 7 18 8Z" fill="#ff9f40"/>
+            <path d="M23.2 12C23.5 10.3 24.5 9.2 25.5 9C25 10.2 24 11.2 23.2 12Z" fill="#ff9f40"/>
+          </svg>
+          <span class="footer-logo-text">FlipperClaw</span>
+        </div>
+        <p class="footer-tagline">
+          An open-source AI agent you can hold in your hand.
+          Built on ESP32-S3. Controlled by Flipper Zero.
+        </p>
+        <p class="footer-built">
+          Built with ESP-IDF v5.5<br>
+          Furi SDK · ArduinoJson<br>
+          Anthropic API · MIT License
+        </p>
+      </div>
+
+      <!-- Project links -->
+      <div>
+        <p class="footer-col-title">Project</p>
+        <ul class="footer-links">
+          <li><a href="https://github.com/yasher3413/flipperclaw" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/yasher3413/flipperclaw/blob/main/README.md" target="_blank" rel="noopener">Docs</a></li>
+          <li><a href="https://github.com/yasher3413/flipperclaw/blob/main/PROTOCOL.md" target="_blank" rel="noopener">Protocol Spec</a></li>
+          <li><a href="https://github.com/yasher3413/flipperclaw/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
+        </ul>
+      </div>
+
+      <!-- Community links -->
+      <div>
+        <p class="footer-col-title">Community</p>
+        <ul class="footer-links">
+          <li><a href="https://github.com/yasher3413/flipperclaw/issues" target="_blank" rel="noopener">Issues</a></li>
+          <li><a href="https://github.com/yasher3413/flipperclaw/discussions" target="_blank" rel="noopener">Discussions</a></li>
+          <li><a href="https://github.com/yasher3413/flipperclaw/releases" target="_blank" rel="noopener">Releases</a></li>
+          <li><a href="#waitlist">Join Waitlist</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <span class="footer-copy">
+        © 2025 FlipperClaw. Open source under MIT.
+        Not affiliated with Flipper Devices or Espressif.
+      </span>
+      <div class="footer-social">
+        <!-- GitHub -->
+        <a href="https://github.com/yasher3413/flipperclaw" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="https://twitter.com/yasher3413" target="_blank" rel="noopener" aria-label="X / Twitter">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 
 <!-- ================================================================
@@ -2103,6 +2578,75 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+
+  /* ── Waitlist form ──
+     To wire up a real backend, replace WAITLIST_ENDPOINT with:
+       Loops.so:    'https://app.loops.so/api/newsletter-form/<YOUR_FORM_ID>'
+       Buttondown:  'https://buttondown.email/api/emails/embed-subscribe/<YOUR_USERNAME>'
+       Custom:      your own serverless function URL
+  ── */
+  const WAITLIST_ENDPOINT = ''; // ← paste your endpoint here
+
+  const form      = document.getElementById('waitlist-form');
+  const emailEl   = document.getElementById('waitlist-email');
+  const btn       = document.getElementById('waitlist-btn');
+  const errEl     = document.getElementById('waitlist-error');
+  const successEl = document.getElementById('waitlist-success');
+  const countEl   = document.getElementById('waitlist-count-num');
+
+  // Animate count upward from 200 → 247 on scroll
+  const countObs = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    let n = 200, target = 247;
+    const step = () => {
+      n = Math.min(n + Math.ceil((target - n) / 6), target);
+      countEl.textContent = n;
+      if (n < target) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    countObs.disconnect();
+  }, { threshold: 0.5 });
+  if (countEl) countObs.observe(document.getElementById('waitlist'));
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = emailEl.value.trim();
+    if (!email) return;
+
+    // Loading state
+    btn.classList.add('loading');
+    btn.disabled = true;
+    errEl.classList.remove('show');
+
+    if (!WAITLIST_ENDPOINT) {
+      // Demo mode — no endpoint configured yet
+      await new Promise(r => setTimeout(r, 900));
+      form.style.display = 'none';
+      successEl.classList.add('show');
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      return;
+    }
+
+    try {
+      const res = await fetch(WAITLIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      form.style.display = 'none';
+      successEl.classList.add('show');
+    } catch (err) {
+      errEl.textContent = 'Something went wrong. Try again or email us directly.';
+      errEl.classList.add('show');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
 </script>
 
 </body>
