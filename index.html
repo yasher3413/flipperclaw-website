@@ -11,9 +11,13 @@
   <meta property="og:description" content="An open-source AI agent running on ESP32-S3 with a Flipper Zero as the physical UI. Stream LLM responses, control hardware, schedule tasks.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://flipperclaw.dev">
+  <meta property="og:image" content="https://flipperclaw.dev/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="FlipperClaw — AI Agent for Flipper Zero">
   <meta name="twitter:description" content="An open-source AI agent running on ESP32-S3 with a Flipper Zero as the physical UI.">
+  <meta name="twitter:image" content="https://flipperclaw.dev/og-image.png">
 
   <!-- Favicon: orange claw -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M11 22 C11 22 9 20 9 17 C9 14 11 12 13 12 L13 8 C13 6 14 5 15 5 C16 5 17 6 17 8 L17 11 C18 10 19 10 20 11 C21 12 21 14 20 15 L20 12 C20 11 20.5 10.5 21 10.5 C21.5 10.5 22 11 22 12 L22 15 C23 14 23.5 14 24 14.5 C24.5 15 24.5 16 24 17 L23 22 C23 24 21 26 19 26 L15 26 C13 26 11 24 11 22Z' fill='%23ff6b00'/></svg>">
@@ -877,24 +881,93 @@
       .hamburger  { display: flex; }
     }
 
-    @media (max-width: 600px) {
+    /* ── 960px: tablet ── */
+    @media (max-width: 960px) {
+      /* Hide floating tool badges — they overflow on narrow screens */
+      .tbadge { display: none; }
+      .hero-inner { gap: 36px; }
+      /* Keep device SVG but let it scale naturally */
+      .device-wrap { max-width: 400px; margin: 0 auto; }
+      .device-wrap svg { width: 100%; height: auto; }
+    }
+
+    /* ── 640px: large phone ── */
+    @media (max-width: 640px) {
       :root { --sec-pad: 64px; }
+
+      /* Hero: hide the heavy SVG illustration, let text + typewriter carry it */
+      .hero-visual { display: none; }
+      .hero-inner { grid-template-columns: 1fr; }
+      #hero { min-height: auto; padding: calc(var(--nav-h) + 32px) 0 52px; }
+      .hero-headline { font-size: clamp(28px, 8vw, 40px); }
+      .hero-sub { font-size: 15px; }
+      .hero-badge { font-size: 10.5px; }
+
+      /* CTAs */
       .hero-ctas { flex-direction: column; }
-      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-      .hero-proof { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; font-size: 15px; }
+
+      /* Proof bar */
+      .hero-proof { flex-direction: column; align-items: flex-start; gap: 6px; }
       .proof-item + .proof-item::before { display: none; }
-      .device-wrap svg { width: 300px; height: auto; }
+
+      /* What-is */
+      .what-text h2 { font-size: clamp(22px, 6vw, 32px); }
+
+      /* Features */
       .feat-grid { grid-template-columns: 1fr; }
-      .tools-table .tool-desc { font-size: 13px; }
+      .feat-card { padding: 22px 20px; }
+      .features-header { margin-bottom: 36px; }
+
+      /* How it works */
+      .hiw-header { margin-bottom: 36px; }
+      .step { gap: 14px; padding: 10px 0; }
+      .step-circle { width: 56px; height: 56px; font-size: 22px; }
+      .step-title { font-size: 15px; }
+      .step-desc { font-size: 13.5px; }
+
+      /* Tools table — allow horizontal scroll instead of squishing */
+      .tools-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .tools-table { min-width: 480px; }
+
+      /* Hardware */
       .hw-grid { grid-template-columns: 1fr; }
+      .hw-part { padding: 13px 14px; }
+      .hw-part-name { font-size: 14px; }
+      .hw-part-sub { font-size: 11px; }
+      .wiring-wrap { padding: 20px 14px; }
+
+      /* LLM providers */
       .llm-grid { grid-template-columns: 1fr; }
+      .llm-card { padding: 24px 20px; }
+
+      /* Memory scroll — stack vertically */
       .mem-scroll { flex-direction: column; }
       .mem-card { min-width: 100%; }
-      .waitlist-inner { padding: 52px 24px; }
+
+      /* Waitlist */
+      .waitlist-inner { padding: 48px 22px; border-radius: 14px; }
       .waitlist-form-row { flex-direction: column; }
       .waitlist-input, .waitlist-btn { width: 100%; }
-      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-      .footer-links-group { flex-direction: column; gap: 10px; }
+      .waitlist-headline { font-size: clamp(24px, 7vw, 36px); }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-tagline { max-width: 100%; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+
+      /* Open source pills wrap more freely */
+      .oss-pills { gap: 8px; }
+      .oss-btns { flex-direction: column; }
+      .oss-btns .btn-primary, .oss-btns .btn-secondary { width: 100%; justify-content: center; }
+    }
+
+    /* ── 375px: small phone ── */
+    @media (max-width: 390px) {
+      .section-title { font-size: 24px; }
+      .llm-card-name { font-size: 16px; }
+      .feat-title { font-size: 14px; }
+      .terminal { font-size: 11.5px; }
     }
 
     /* ============================================================
